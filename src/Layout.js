@@ -16,6 +16,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { BrowserRouter as Router, Link } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -52,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function ResponsiveDrawer(props) {
+function Layout(props) {
   const { window } = props;
   const classes = useStyles();
   const theme = useTheme();
@@ -66,14 +67,28 @@ function ResponsiveDrawer(props) {
     <div>
       <div className={classes.toolbar} />
       <Divider />
+      <List>
+        <ListItem button key='Home'>
+          <ListItemIcon>
+            <MailIcon />
+          </ListItemIcon>
 
+          <Link to={'/'}>
+            <ListItemText primary='Home' />
+          </Link>
+        </ListItem>
+      </List>
+      <Divider />
       <List>
         {['Roots', 'Growth', 'Network'].map((text, index) => (
           <ListItem button key={text}>
             <ListItemIcon>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
             </ListItemIcon>
-            <ListItemText primary={text} />
+
+            <Link to={`/${text.toLowerCase()}`}>
+              <ListItemText primary={text} />
+            </Link>
           </ListItem>
         ))}
       </List>
@@ -102,46 +117,48 @@ function ResponsiveDrawer(props) {
           </Typography>
         </Toolbar>
       </AppBar>
-      <nav className={classes.drawer} aria-label='mailbox folders'>
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-        <Hidden smUp implementation='css'>
-          <Drawer
-            container={container}
-            variant='temporary'
-            anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-            open={mobileOpen}
-            onClose={handleDrawerToggle}
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-        <Hidden xsDown implementation='css'>
-          <Drawer
-            classes={{
-              paper: classes.drawerPaper,
-            }}
-            variant='permanent'
-            open
-          >
-            {drawer}
-          </Drawer>
-        </Hidden>
-      </nav>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        {props.children}
-      </main>
+      <Router>
+        <nav className={classes.drawer} aria-label='mailbox folders'>
+          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+          <Hidden smUp implementation='css'>
+            <Drawer
+              container={container}
+              variant='temporary'
+              anchor={theme.direction === 'rtl' ? 'right' : 'left'}
+              open={mobileOpen}
+              onClose={handleDrawerToggle}
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+              ModalProps={{
+                keepMounted: true, // Better open performance on mobile.
+              }}
+            >
+              {drawer}
+            </Drawer>
+          </Hidden>
+          <Hidden xsDown implementation='css'>
+            <Drawer
+              classes={{
+                paper: classes.drawerPaper,
+              }}
+              variant='permanent'
+              open
+            >
+              {drawer}
+            </Drawer>
+          </Hidden>
+        </nav>
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          {props.children}
+        </main>
+      </Router>
     </div>
   );
 }
 
-ResponsiveDrawer.propTypes = {
+Layout.propTypes = {
   /**
    * Injected by the documentation to work in an iframe.
    * You won't need it on your project.
@@ -149,4 +166,4 @@ ResponsiveDrawer.propTypes = {
   window: PropTypes.func,
 };
 
-export default ResponsiveDrawer;
+export default Layout;
