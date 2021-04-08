@@ -16,7 +16,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
-import { BrowserRouter as Router, Link } from 'react-router-dom';
+import { BrowserRouter as Router, NavLink } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -68,27 +68,28 @@ function Layout(props) {
       <div className={classes.toolbar} />
       <Divider />
       <List>
-        <ListItem button key='Home'>
+        <ListItem button key='Home' component={NavLink} exact to={'/'}>
           <ListItemIcon>
             <MailIcon />
           </ListItemIcon>
 
-          <Link to={'/'}>
-            <ListItemText primary='Home' />
-          </Link>
+          <ListItemText primary='Home' />
         </ListItem>
       </List>
       <Divider />
       <List>
         {['Roots', 'Growth', 'Network'].map((text, index) => (
-          <ListItem button key={text}>
+          <ListItem
+            button
+            key={text}
+            component={NavLink}
+            to={`/${text.toLowerCase()}`}
+          >
             <ListItemIcon>
               {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
             </ListItemIcon>
 
-            <Link to={`/${text.toLowerCase()}`}>
-              <ListItemText primary={text} />
-            </Link>
+            <ListItemText primary={text} />
           </ListItem>
         ))}
       </List>
