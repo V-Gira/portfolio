@@ -1,5 +1,5 @@
 import './App.css';
-import Layout from './Layout';
+import Layout from './components/Layout';
 import Home from './Home';
 import Roots from './Roots';
 import Growth from './Growth';
