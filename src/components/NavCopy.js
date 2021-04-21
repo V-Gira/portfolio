@@ -29,9 +29,6 @@ const appBarTheme = createMuiTheme({
 
 const useStyles = makeStyles((theme) => ({
   root: {},
-  appBar: {
-    color: '#fff',
-  },
   title: {
     flexGrow: 1,
   },
@@ -53,7 +50,6 @@ export default function NavCopy(props) {
           <ParticlesBg type='circle' bg={true} />
           <Toolbar>
             <Typography
-              className={classes.appBar}
               color='inherit'
               className={classes.title}
               variant='h5'

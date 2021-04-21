@@ -3,7 +3,7 @@ import MediaCard from './components/MediaCard';
 export default function Roots(props) {
   return (
     <MediaCard
-      img={'/wood-wide-web.jpg'}
+      img={'/roots.svg'}
       imgTitle={'Wood Wide Web'}
       title={'Roots'}
       paragraph={
